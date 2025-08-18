@@ -1,4 +1,4 @@
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](ufv.jpg)
+![Universidade Federal de Viçosa.](ufv.jpg)
 
 # Introdução ao Assistente de Provas Lean
 Minicurso apresentado na **30ª Semana de Informática** da **Univerisdade Federal de Viçosa (UFV)**. \
@@ -38,23 +38,23 @@ Os temas abordados nesse minicurso são:
 
 Este repositório contém os seguintes arquivos (relacionados à apresentação):
 
-* `ProgFun.lean`\
+* [`ProgFun.lean`](ProgFun.lean)\
     Implementa as avaliações, variáveis e funções apresentadas na seção de conceitos básicos de Programação Funcional em Lean.
 
-* `MyBool.lean`\
+* [`MyBool.lean`](MyBool.lean)\
     Implementa o tipo MyBool, apresentado na seção de Programação em Lean, além de um conjunto de funções e os cabeçalhos dos teoremas a serem provados.
 
-* `MyNat.lean`\
+* [`MyNat.lean`](MyNat.lean)\
     Implementa o tipo MyNat, apresentado na seção de Programação em Lean, além de um conjunto de funções e os cabeçalhos dos teoremas a serem provados.
 
-* `solucoes/MyBool.lean`\
+* [`solucoes/MyBool.lean`](solucoes/MyBool.lean)\
     Contém todas as definições de `MyBool.lean` e a prova dos teoremas declarados.
 
-* `solucoes/MyNat.lean`\
+* [`solucoes/MyNat.lean`](solucoes/MyNat.lean)\
     Contém todas as definições de `MyNat.lean` e a prova dos teoremas declarados.
 
-* `slides/main.pdf`\
+* [`slides/main.pdf`](slides/main.pdf)\
     Slides apresentados durante o minicurso.
 
-* `slides/extras.pdf`\
+* [`slides/main.pdf`](slides/extras.pdf)\
     Slides **extras**, não apresentados durante o minicurso, sobre Teoria de Tipos Dependentes.
