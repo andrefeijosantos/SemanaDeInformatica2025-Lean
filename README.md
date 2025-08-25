@@ -38,6 +38,9 @@ Os temas abordados nesse minicurso são:
 
 Este repositório contém os seguintes arquivos (relacionados à apresentação):
 
+* [`slides.pdf`](main.pdf)\
+    Slides apresentados durante o minicurso.
+
 * [`ProgFun.lean`](ProgFun.lean)\
     Implementa as avaliações, variáveis e funções apresentadas na seção de conceitos básicos de Programação Funcional em Lean.
 
@@ -52,9 +55,3 @@ Este repositório contém os seguintes arquivos (relacionados à apresentação)
 
 * [`solucoes/MyNat.lean`](solucoes/MyNat.lean)\
     Contém todas as definições de `MyNat.lean` e a prova dos teoremas declarados.
-
-* [`slides/main.pdf`](slides/main.pdf)\
-    Slides apresentados durante o minicurso.
-
-* [`slides/main.pdf`](slides/extras.pdf)\
-    Slides **extras**, não apresentados durante o minicurso, sobre Teoria de Tipos Dependentes.
