@@ -98,9 +98,9 @@ def γ : Type := String
 -- recebe um Nat e retorna outra função que recebe um
 -- Nat, e retorna um Nat.
 
-#check Nat.add                     -- Esperado: Nat → Nat → Nat
-#check Nat.add 1 2                 -- Esperado: Nat
-#check Nat.add 1                   -- Esperado: Nat → Nat
+#check Nat.mul                     -- Esperado: Nat → Nat → Nat
+#check Nat.mul 1 2                 -- Esperado: Nat
+#check Nat.mul 1                   -- Esperado: Nat → Nat
 
 
 -- A função dbl pode ser definida assim (com ' para evitar

@@ -24,7 +24,7 @@ Os temas abordados nesse minicurso são:
   * Avaliação de Expressões e Tipos
   * Declaração de Variáveis e Funções
   * Tipos em Lean
-  * Declaração de tipos indutivos
+  * Definição de Enumerações e Tipos Indutivos
 
 * Provas em Lean
   * Provas por Simplificação
@@ -38,8 +38,11 @@ Os temas abordados nesse minicurso são:
 
 Este repositório contém os seguintes arquivos (relacionados à apresentação):
 
-* [`slides.pdf`](main.pdf)\
-    Slides apresentados durante o minicurso.
+* [`slides1.pdf`](slides1.pdf)\
+    Primeira parte dos slides apresentados durante o minicurso - Referente à Programação Funcional em Lean.
+
+* [`slides2.pdf`](slides2.pdf)\
+    Segunda parte dos slides apresentados durante o minicurso - Referente ao Assistente de Provas Lean.
 
 * [`ProgFun.lean`](ProgFun.lean)\
     Implementa as avaliações, variáveis e funções apresentadas na seção de conceitos básicos de Programação Funcional em Lean.
