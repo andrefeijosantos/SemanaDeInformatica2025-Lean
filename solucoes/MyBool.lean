@@ -12,7 +12,7 @@
 
 namespace MyBoolPlayground
 
-/-! ====== DEFININDO TIPOS INDUTIVOS - MyBool ====== -/
+/-! ====== ENUMERAÇÕES ====== -/
 -- Vamos definir o tipo `MyBool`, cujos membros são `True`
 -- e `False`.
 
@@ -25,8 +25,10 @@ open MyBool
 
 #check True                        -- Esperado: MyBool
 #check False                       -- Esperado: MyBool
+#check MyBool                      -- Type
 
 def bvar : MyBool := True
+def btype : Type := MyBool
 
 #eval bvar
 #check bvar
@@ -101,6 +103,8 @@ inductive Byte where
 
 open Byte Bit
 
+#check Bits
+
 -- True se b for um byte zerado; False, caso contrário.
 def all_zero (b : Byte) : MyBool :=
   match b with
@@ -116,9 +120,182 @@ def is_even (b : Byte) : MyBool :=
   | Bits _ _ _ _ _ _ _ B0 => True
   | Bits _ _ _ _ _ _ _ B1 => False
 
-#eval is_even (Bits B0 B0 B0 B0 B0 B1 B0 B0)  -- Esperado: True
-#eval is_even (Bits B0 B0 B0 B0 B1 B0 B0 B0)  -- Esperado: True
-#eval is_even (Bits B0 B0 B0 B0 B0 B1 B0 B1)  -- Esperado: False
-#eval is_even (Bits B0 B0 B0 B0 B0 B0 B1 B1)  -- Esperado: False
+-- True se b for ímpar; False, caso contrário.
+def is_odd (b : Byte) : MyBool := negb (is_even b)
+
+#eval is_odd (Bits B0 B0 B0 B0 B0 B1 B0 B0)  -- Esperado: False
+#eval is_odd (Bits B0 B0 B0 B0 B1 B0 B0 B0)  -- Esperado: False
+#eval is_odd (Bits B0 B0 B0 B0 B0 B1 B0 B1)  -- Esperado: True
+#eval is_odd (Bits B0 B0 B0 B0 B0 B0 B1 B1)  -- Esperado: True
 
 end MyBoolPlayground
+
+
+
+open MyBoolPlayground
+
+
+/-! ====== PROVAS POR SIMPLIFICAÇÃO ====== -/
+-- A própria definição dos tipos sobre os quais estamos
+-- conduzindo provas pode ser suficiente para concluir
+-- o objetivo
+
+-- ∀b ∈ MyBool, False ∧ b = False
+theorem false_and_b_eq_false :
+  ∀(b : MyBool), (MyBool.False ∧ b) = MyBool.False :=
+by intros b
+   simp [andb]
+
+-- ∀b ∈ MyBool, True ∧ b = True
+theorem true_or_b_eq_true :
+  ∀(b : MyBool), (MyBool.True ∨ b) = MyBool.True :=
+by intros b
+   simp [orb]
+
+
+/-! ====== PROVAS POR REESCRITA ====== -/
+
+-- ∀b1, b2 ∈ MyBool, (b1 = Flase) → (b1 ∧ b2 = False)
+theorem if_b1_false_then_b1_and_b2_eq_false :
+  ∀(b1 b2 : MyBool),
+    (b1 = MyBool.False) -> (andb b1 b2 = MyBool.False) :=
+by intros b1 b2
+   intros Hb1
+   rw [Hb1]
+   rw [false_and_b_eq_false]
+
+-- ∀b ∈ Byte, (is_even b = True) → (is_odd b = False)
+theorem if_even_byte_then_not_odd_byte :
+  ∀(b : Byte),
+    (is_even b = MyBool.True) -> (is_odd b = MyBool.False) :=
+by intros b
+   intros Hb
+   rw [is_odd]
+   rw [Hb]
+   simp [negb]
+
+
+/-! ====== PROVAS POR ANÁLISE DE CASOS ====== -/
+-- Imagine que temos que provar um teorema sobre alguma
+-- enumeração (e.g., MyBool).
+
+-- Podemos testar se o teorema vale para cada constructo
+-- separadamente.
+
+-- Se de fato o teorema é válido para qualquer um dos
+-- constructos, então está provado para qualquer variável
+-- daquele tipo.
+
+theorem andb_comm :
+  ∀(b1 b2 : MyBool), (b1 ∧ b2) = (b2 ∧ b1) :=
+by intros b1
+   intros b2
+   cases b1
+   case True =>
+    cases b2
+    case True => rfl
+    case False => rfl
+   case False =>
+    cases b2
+    case True => rfl
+    case False => rfl
+
+
+-- Nossa primeira prova foi que
+--          ∀b ∈ MyBool, False ∧ b = False
+
+-- Como poderíamos provar o seguinte teorema?
+--          ∀b ∈ MyBool, b ∧ False = False
+
+-- Vamos começar tentando uma prova por simplificação.
+theorem b_and_false_eq_false' :
+  ∀(b : MyBool), (b ∧ MyBool.False) = MyBool.False :=
+by intros b
+   simp [andb]
+
+
+-- E uma prova por casos?
+theorem b_and_false_eq_false'' :
+  ∀(b : MyBool), (b ∧ MyBool.False) = MyBool.False :=
+by intros b
+   cases b
+   case True => rfl
+   case False => rfl
+
+
+-- Mas mais simples que isso: reaproveitar resultados
+-- já obtidos!
+theorem b_and_false_eq_false :
+  ∀(b : MyBool), (b ∧ MyBool.False) = MyBool.False :=
+by intros b
+   rw [andb_comm]              -- b ∧ False = False ∧ b
+   simp [andb]
+
+
+
+/-! ====== PARA PRATICAR ====== -/
+-- Tente identificar quais táticas usar para concluir
+-- as seguintes provas. As soluções estão disponíveis
+-- em `solucoes/MyBool.lean`.
+
+-- ¬True = False
+-- Prova por simplificação.
+theorem negb_true :
+  negb MyBool.True = MyBool.False :=
+by rfl
+
+-- ¬False = True
+-- Prova por simplificação
+theorem negb_false :
+  negb MyBool.False = MyBool.True :=
+by rfl
+
+-- ∀b1, b2 ∈ MyBool, ¬(b1 ∧ b2) = ¬b1 ∨ ¬b2
+-- Prova por casos e por reescrita (poderia também ser
+-- usada apenas prova por casos).
+theorem de_morgan :
+  ∀(b1 b2 : MyBool), negb (andb b1 b2) = (orb (negb b1) (negb b2)) :=
+by intros b1 b2
+   cases b1
+   case True => simp[andb]
+                simp [negb_true]
+                simp [orb]
+   case False => simp[andb]
+                 simp[negb_false]
+                 simp [orb]
+
+
+
+-- Considere a seguinte definição de xorb.
+def xorb (b1 b2 : MyBool) : MyBool :=
+  match b1, b2 with
+  | MyBool.True, MyBool.False => MyBool.True
+  | MyBool.False, MyBool.True => MyBool.True
+  | _, _ => MyBool.False
+
+-- ∀b1, b2 ∈ MyBool, b1 = True -> b1 ⊕ b2 = ¬b2
+-- Prova por reescrita e casos.
+theorem xor_True_b :
+  ∀(b1 b2 : MyBool), (b1 = MyBool.True) -> (xorb b1 b2 = negb b2) :=
+by intros b1 b2
+   intros Hb1
+   rw [Hb1]
+   cases b2
+   case True => rfl
+   case False => rfl
+
+
+-- Considere a nova definição de xorb (nomeado xorb').
+def xorb' (b1 b2 : MyBool) : MyBool :=
+  match b1 with
+  | MyBool.True => negb b2
+  | MyBool.False => b2
+
+-- ∀b1, b2 ∈ MyBool, b1 = True -> b1 ⊕' b2 = ¬b2
+-- Prova por reescrita.
+theorem xor_True_b' :
+  ∀(b1 b2 : MyBool), (b1 = MyBool.True) -> (xorb' b1 b2 = negb b2) :=
+by intros b1 b2
+   intros Hb1
+   rw [Hb1]
+   simp [xorb']
