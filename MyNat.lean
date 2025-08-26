@@ -196,44 +196,28 @@ by admit
 -- Prova por indução
 theorem plus_assoc :
   ∀(n m o : MyNat), (n + (m + o)) = ((n + m) + o) :=
-by intros n m o
-   induction n with
-   | O => rfl
-   | S n' IHn' => simp[plus]
-                  rw [IHn']
+by admit
 
 -- ∀n ∈ MyNat, O - n = n
 -- Prova por Simplificação.
 theorem minus_O_n :
   ∀(n : MyNat), (O - n) = O :=
-by intros n
-   simp[minus]
+by admit
 
 -- ∀n ∈ MyNat, n - n = O
 -- Prova por Indução.
 theorem minus_n_n_O :
   ∀(n : MyNat), (n - n) = O :=
-by intros n
-   induction n with
-   | O => rfl
-   | S n' IHn' => simp[minus]
-                  rw[IHn']
+by admit
 
 -- ∀n ∈ MyNat, n × O = O
 -- Prova por indução
 theorem mul_n_O_eq_O :
   ∀(n : MyNat), (n × O) = O :=
-by intros n
-   induction n with
-   | O => rfl
-   | S n' IHn' => simp[mul]
-                  rw[IHn']
-                  rfl
+by admit
 
 -- ∀n ∈ MyNat, n × O × O = O
 -- Prova por reescrita
 theorem mul_n_O_O_eq_n :
   ∀(n : MyNat), (n × O × O) = O :=
-by intros n
-   simp[mul]
-   rw[mul_n_O_eq_O]
+by admit
