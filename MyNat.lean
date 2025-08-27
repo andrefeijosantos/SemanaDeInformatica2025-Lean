@@ -193,31 +193,26 @@ by admit
 -- em `solucoes/MyNat.lean`.
 
 -- ∀n, m, o ∈ MyNat, (n + (m + o)) = ((n + m) + o).
--- Prova por indução
 theorem plus_assoc :
   ∀(n m o : MyNat), (n + (m + o)) = ((n + m) + o) :=
 by admit
 
 -- ∀n ∈ MyNat, O - n = n
--- Prova por Simplificação.
 theorem minus_O_n :
   ∀(n : MyNat), (O - n) = O :=
 by admit
 
 -- ∀n ∈ MyNat, n - n = O
--- Prova por Indução.
 theorem minus_n_n_O :
   ∀(n : MyNat), (n - n) = O :=
 by admit
 
 -- ∀n ∈ MyNat, n × O = O
--- Prova por indução
 theorem mul_n_O_eq_O :
   ∀(n : MyNat), (n × O) = O :=
 by admit
 
 -- ∀n ∈ MyNat, n × O × O = O
--- Prova por reescrita
 theorem mul_n_O_O_eq_n :
   ∀(n : MyNat), (n × O × O) = O :=
 by admit

@@ -227,20 +227,16 @@ by intros b
 -- em `solucoes/MyBool.lean`.
 
 -- ¬True = False
--- Prova por simplificação.
 theorem negb_true :
   negb MyBool.True = MyBool.False :=
 by admit
 
 -- ¬False = True
--- Prova por simplificação
 theorem negb_false :
   negb MyBool.False = MyBool.True :=
 by admit
 
 -- ∀b1, b2 ∈ MyBool, ¬(b1 ∧ b2) = ¬b1 ∨ ¬b2
--- Prova por casos e por reescrita (poderia também ser
--- usada apenas prova por casos).
 theorem de_morgan :
   ∀(b1 b2 : MyBool), negb (andb b1 b2) = (orb (negb b1) (negb b2)) :=
 by admit
@@ -255,7 +251,6 @@ def xorb (b1 b2 : MyBool) : MyBool :=
   | _, _ => MyBool.False
 
 -- ∀b1, b2 ∈ MyBool, b1 = True -> b1 ⊕ b2 = ¬b2
--- Prova por reescrita e casos.
 theorem xor_True_b :
   ∀(b1 b2 : MyBool), (b1 = MyBool.True) -> (xorb b1 b2 = negb b2) :=
 by admit
@@ -268,7 +263,6 @@ def xorb' (b1 b2 : MyBool) : MyBool :=
   | MyBool.False => b2
 
 -- ∀b1, b2 ∈ MyBool, b1 = True -> b1 ⊕' b2 = ¬b2
--- Prova por reescrita.
 theorem xor_True_b' :
   ∀(b1 b2 : MyBool), (b1 = MyBool.True) -> (xorb' b1 b2 = negb b2) :=
 by admit
